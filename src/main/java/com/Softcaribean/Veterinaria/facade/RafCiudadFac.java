@@ -8,6 +8,7 @@ import java.util.List;
 public interface RafCiudadFac {
 
     public void save(RafCiudadDto rafCiudadDto) throws FacException;
+    public void delete(RafCiudadDto rafCiudadDto) throws FacException;
     public List<RafCiudadDto> getall() throws FacException;
 
 }

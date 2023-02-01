@@ -55,6 +55,25 @@ public class RafCiudadDaoImp implements RafCiudadDao {
         }
     }
 
+    public void delete(RafCiudadDto rafCiudadDto) throws DaoException {
+        String DELETE = "DELETE FROM raf_ciudad where nmid=?";
+        PreparedStatement statement = null;
+        Connection connection = Managerconexion.getInstance().getConnection();
+        try {
+            statement = connection.prepareStatement(DELETE);
+            statement.setInt(1, rafCiudadDto.getNmid());
+            statement.executeUpdate();
+        } catch (Exception ex) {
+            throw new DaoException(ex);
+        } finally {
+            try {
+                statement.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
     public RafCiudadDto selectbyid(RafCiudadDto rafCiudadDto) throws DaoException {
         RafCiudadDto result = null;
         String SELECT = " SELECT * from raf_ciudad where nmid=?";

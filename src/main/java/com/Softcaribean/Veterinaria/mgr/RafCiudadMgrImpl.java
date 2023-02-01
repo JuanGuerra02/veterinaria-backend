@@ -16,11 +16,21 @@ public class RafCiudadMgrImpl implements RafCiudadMgr {
 
     public void save(RafCiudadDto rafCiudadDto) throws MgrException {
         try {
-            RafCiudadDto sp = rafCiudadDao.selectbyid(rafCiudadDto);
-            if (sp == null) {
+            RafCiudadDto x = rafCiudadDao.selectbyid(rafCiudadDto);
+            if (x == null) {
                 rafCiudadDao.insert(rafCiudadDto);
             }else{
                 rafCiudadDao.update(rafCiudadDto);
+            }
+        } catch (Exception ex) {
+            throw new MgrException(ex);
+        }
+    }
+    public void delete(RafCiudadDto rafCiudadDto) throws MgrException {
+        try {
+            RafCiudadDto x = rafCiudadDao.selectbyid(rafCiudadDto);
+            if (x != null) {
+                rafCiudadDao.delete(rafCiudadDto);
             }
         } catch (Exception ex) {
             throw new MgrException(ex);
