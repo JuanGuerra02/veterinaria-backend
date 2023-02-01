@@ -14,6 +14,18 @@ public class RafCiudadMgrImpl implements RafCiudadMgr {
     @Autowired
     private RafCiudadDao rafCiudadDao;
 
+    public void save(RafCiudadDto rafCiudadDto) throws MgrException {
+        try {
+            RafCiudadDto sp = rafCiudadDao.selectbyid(rafCiudadDto);
+            if (sp == null) {
+                rafCiudadDao.insert(rafCiudadDto);
+            }else{
+                rafCiudadDao.update(rafCiudadDto);
+            }
+        } catch (Exception ex) {
+            throw new MgrException(ex);
+        }
+    }
     public List<RafCiudadDto> getall() throws MgrException {
         try {
             return rafCiudadDao.getall();

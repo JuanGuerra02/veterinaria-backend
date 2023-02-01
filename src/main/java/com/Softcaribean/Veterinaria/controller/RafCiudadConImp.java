@@ -6,10 +6,7 @@ import com.Softcaribean.Veterinaria.facade.RafCiudadFac;
 import com.Softcaribean.Veterinaria.dto.RafCiudadDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +17,21 @@ public class RafCiudadConImp {
     @Autowired
     private RafCiudadFac rafCiudadFac;
 
+    @CrossOrigin
+    @PostMapping("/ciudad/save")
+    public ResponseEntity<Mensaje> save(@RequestBody RafCiudadDto rafCiudadDto) throws ConException {
+        Mensaje mensaje = new Mensaje();
+        try {
+            rafCiudadFac.save(rafCiudadDto);
+            mensaje.setCodigo(0);
+            mensaje.setMensaje("La ciudad fue guardada");
+        } catch (Exception ex) {
+            mensaje.setCodigo(1);
+            mensaje.setMensaje("Error al guardar la ciudad ");
+            throw new ConException(ex);
+        }
+        return ResponseEntity.ok(mensaje);
+    }
 
     @CrossOrigin
     @GetMapping("/ciudad/getall")

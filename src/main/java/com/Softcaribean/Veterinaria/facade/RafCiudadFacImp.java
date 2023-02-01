@@ -15,7 +15,18 @@ public class RafCiudadFacImp implements RafCiudadFac{
     @Autowired
     private RafCiudadMgr rafCiudadMgr;
 
-
+    public void save(RafCiudadDto rafCiudadDto) throws FacException {
+        try {
+            Managerconexion.getInstance().open();
+            rafCiudadMgr.save(rafCiudadDto);
+            Managerconexion.getInstance().commit();
+        } catch (Exception ex) {
+            Managerconexion.getInstance().rollback();
+            throw new FacException(ex);
+        } finally {
+            Managerconexion.getInstance().close();
+        }
+    }
     public List<RafCiudadDto> getall() throws FacException {
         Managerconexion.getInstance().open();
         try {

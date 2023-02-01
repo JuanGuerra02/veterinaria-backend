@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface RafCiudadMgr {
 
+    public void save(RafCiudadDto rafCiudadDto) throws MgrException;
     public List<RafCiudadDto> getall() throws MgrException;
 }
